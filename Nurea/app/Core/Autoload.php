@@ -38,17 +38,27 @@ if (file_exists($envFile)) {
 
 $config = require __DIR__ . '/../../config/config.php';
 
+// 1. Détection stricte du proxy HTTPS Render
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+
 if (session_status() !== PHP_SESSION_ACTIVE) {
     $sessionName = $config['app']['session_name'] ?? 'app_session';
     session_name($sessionName);
 
-    $isHttps = (
-        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
-        (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
-    );
+    // 2. Création d'un dossier de session persistant
+    $sessionSavePath = sys_get_temp_dir() . '/nurea_sessions';
+    if (!is_dir($sessionSavePath)) {
+        @mkdir($sessionSavePath, 0777, true);
+    }
+    session_save_path($sessionSavePath);
 
+    // 3. Configuration des cookies de session
     session_set_cookie_params([
-        'lifetime' => 0,
+        'lifetime' => 86400, // 24h au lieu de 0 pour éviter l'expiration prématurée
         'path' => '/',
         'domain' => '',
         'secure' => $isHttps,
