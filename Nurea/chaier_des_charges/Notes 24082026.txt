@@ -1,0 +1,6 @@
+Notes 24/08/2026 : 
+- Lister les domaines d'expirations proche 
+- Contrôle interne entre les rôles et domaines 
+- Scanner directement un document dans l'application scan avec ocr (si possible)
+- tests
+- Valideur pour gestion des droits RGPD 

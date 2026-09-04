@@ -1,0 +1,155 @@
+Cahier des charges fonctionnel complet - Glow Store
+1. Pr�sentation g�n�rale
+Glow Store est une plateforme e-commerce sp�cialis�e dans la vente de produits de beaut� f�minine.
+
+L'application doit permettre :
+- la vente en ligne de produits cosm�tiques
+- la gestion des commandes
+- le suivi commercial quotidien
+- l'analyse des performances de vente
+- l'exportation comptable et administrative
+
+L'objectif est de disposer d'une solution exploitable en conditions r�elles.
+2. Objectifs m�tier
+Objectifs commerciaux :
+- augmenter les ventes en ligne
+- simplifier la prise de commande
+- am�liorer le suivi client
+
+Objectifs administratifs :
+- suivre les ventes quotidiennement
+- produire des rapports de gestion
+- faciliter les audits comptables
+
+Objectifs techniques :
+- application stable
+- s�curis�e
+- responsive
+- facilement maintenable
+3. Technologies impos�es
+- Backend : PHP natif structur� MVC
+- Base de donn�es : MySQL
+- Frontend : HTML, CSS, JavaScript, Bootstrap
+- Environnement local : XAMPP
+4. Architecture fonctionnelle
+L'application se divise en deux espaces :
+- Front Office : espace client
+- Back Office : espace administration
+5. Front Office - Fonctionnalit�s client
+5.1 Page d'accueil
+- banni�re principale
+- produits vedettes
+- promotions
+- nouveaut�s
+- cat�gories populaires
+
+5.2 Catalogue produits
+- affichage grille produits
+- recherche dynamique
+- filtre par cat�gorie
+- tri par prix
+- tri par popularit�
+
+5.3 Fiche produit
+- image produit
+- galerie images
+- description
+- prix
+- stock disponible
+- bouton panier
+
+5.4 Panier
+- ajout produit
+- suppression produit
+- modification quantit�
+- total automatique
+
+5.5 Commande sans compte obligatoire
+Le client valide sa commande sans cr�er de compte en saisissant :
+- nom
+- pr�nom
+- t�l�phone
+- adresse compl�te
+- ville
+- remarque �ventuelle
+
+5.6 Compte client facultatif
+Le client peut cr�er un compte s'il souhaite suivre ses commandes.
+6. Back Office - Administration compl�te
+6.1 Authentification administrateur
+- acc�s s�curis�
+
+6.2 Dashboard principal
+Le tableau de bord doit afficher :
+- total ventes du jour
+- total ventes du mois
+- nombre commandes du jour
+- nombre commandes du mois
+- produits les plus vendus
+8. Profil Vendeur
+- Le système doit prendre en charge des comptes "vendeur" qui gèrent leurs produits et le suivi des livraisons.
+- Un vendeur peut : gérer son catalogue (si autorisé), consulter les commandes contenant ses produits, et mettre à jour le statut de livraison par ligne de commande.
+- Statuts de livraison par produit (order_detail) : `en_attente`, `packaging`, `termine`, `en_attente_livraison`, `en_cours_de_livraison`, `valide`.
+- courbe mensuelle du chiffre d'affaires
+
+Visualisations attendues :
+- graphique ligne
+- graphique barres
+8. Gestion produits
+CRUD complet :
+- ajouter produit
+- modifier produit
+- supprimer produit
+- image produit
+- stock
+9. Gestion cat�gories
+CRUD cat�gories
+10. Gestion commandes
+Affichage :
+- num�ro commande
+- cliente
+- date
+- montant
+- statut
+
+Statuts :
+- en attente
+- valid�e
+- exp�di�e
+- livr�e
+11. Exportation CSV pour audit comptable
+Exporter les donn�es commandes en CSV avec :
+- num�ro commande
+- date
+- cliente
+- t�l�phone
+- adresse
+- montant total
+- statut
+
+Export possible :
+- journalier
+- mensuel
+- annuel
+12. Base de donn�es attendue
+Tables principales :
+- admins
+- categories
+- products
+- orders
+- order_details
+13. Contraintes techniques
+- requ�tes pr�par�es
+- anti injection SQL
+- sessions s�curis�es
+- responsive mobile
+- architecture MVC stricte
+14. Évolutions futures prévues
+- intégration WhatsApp
+- notifications email
+- codes promo
+- tableau prévisionnel des ventes
+
+15. Annexes
+- ERD et migration SQL fournis dans /database.
+

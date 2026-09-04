@@ -1,0 +1,501 @@
+
+GLOW STORE
+Document de Spécifications Fonctionnelles et Techniques
+Plateforme e-commerce de produits de beauté féminine
+Version 1.0 — Juillet 2026
+Stack technique : PHP natif (MVC) · MySQL · HTML/CSS/JS · Bootstrap
+
+1. Présentation du projet
+Glow Store est une plateforme e-commerce dédiée à la vente de produits de beauté féminine. Le projet vise une solution complète et exploitable en conditions réelles, couvrant la vente en ligne, la gestion des commandes, le suivi commercial quotidien, l'analyse des performances et l'exportation comptable.
+Ce document a pour objectif de spécifier précisément ce qui doit être réalisé : le périmètre fonctionnel, les règles de gestion, les contraintes techniques, le modèle de données et les livrables attendus, afin de servir de référence unique pour le développement.
+1.1 Périmètre du document
+Définir les fonctionnalités attendues côté client (Front Office) et administration (Back Office)
+Fixer les priorités de développement (méthode MoSCoW : Must / Should / Could)
+Décrire le modèle de données cible
+Poser les exigences non fonctionnelles (sécurité, performance, ergonomie)
+Cadrer les livrables et le déroulement du projet
+2. Objectifs du projet
+2.1 Objectifs commerciaux
+Augmenter les ventes en ligne en facilitant l'accès au catalogue
+Simplifier la prise de commande, y compris sans création de compte
+Améliorer le suivi et la fidélisation client
+2.2 Objectifs administratifs
+Suivre les ventes quotidiennement via un tableau de bord
+Produire des rapports de gestion fiables (courbes, chiffre d'affaires)
+Faciliter les audits comptables via l'export des données
+2.3 Objectifs techniques
+Application stable et sécurisée (protection contre les injections SQL, sessions sécurisées)
+Interface responsive, utilisable sur mobile
+Code maintenable, architecture MVC stricte
+3. Périmètre fonctionnel
+L'application se compose de deux espaces distincts :
+Front Office — espace public destiné aux clientes : navigation, commande, suivi
+Back Office — espace réservé à l'administration : pilotage, gestion, reporting
+Chaque fonctionnalité listée ci-après est associée à une priorité :
+Must — indispensable pour la mise en production (V1)
+Should — important, à livrer si le temps le permet en V1, sinon en priorité V1.1
+Could — amélioration souhaitable, non bloquante
+4. Spécifications détaillées — Front Office
+4.1 Page d'accueil
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+FO-01
+Bannière principale
+Zone visuelle en tête de page mettant en avant une opération commerciale ou une collection.
+Must
+FO-02
+Produits vedettes
+Sélection manuelle ou automatique (best-sellers) affichée en page d'accueil.
+Must
+FO-03
+Promotions
+Bloc dédié aux produits en réduction, avec badge de pourcentage/prix barré.
+Should
+FO-04
+Nouveautés
+Affichage des derniers produits ajoutés (tri par date de création décroissante).
+Should
+FO-05
+Catégories populaires
+Raccourcis visuels vers les catégories les plus consultées ou vendues.
+Could
+
+4.2 Catalogue produits
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+FO-06
+Grille produits
+Affichage paginé des produits (image, nom, prix, statut stock).
+Must
+FO-07
+Recherche dynamique
+Recherche par mot-clé avec suggestions en temps réel (AJAX).
+Must
+FO-08
+Filtre par catégorie
+Filtrage des produits par catégorie et sous-catégorie.
+Must
+FO-09
+Tri par prix
+Tri croissant / décroissant sur le prix affiché.
+Should
+FO-10
+Tri par popularité
+Tri basé sur le nombre de ventes ou les vues produit.
+Could
+
+4.3 Fiche produit
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+FO-11
+Image + galerie
+Image principale et galerie de photos secondaires avec zoom ou carrousel.
+Must
+FO-12
+Description
+Description détaillée, composition, mode d'utilisation.
+Must
+FO-13
+Prix et stock
+Affichage du prix TTC et de la disponibilité (en stock / rupture).
+Must
+FO-14
+Ajout au panier
+Bouton d'ajout avec sélection de quantité, désactivé si rupture de stock.
+Must
+
+4.4 Panier
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+FO-15
+Ajout / suppression
+Gestion des lignes du panier, persistance en session tant que non commandé.
+Must
+FO-16
+Modification quantité
+Mise à jour de la quantité avec recalcul immédiat du sous-total, vérification du stock disponible.
+Must
+FO-17
+Total automatique
+Calcul du total en temps réel (sous-total, frais de livraison si applicable, total général).
+Must
+
+4.5 Commande sans compte obligatoire
+Règle de gestion clé : la cliente peut finaliser sa commande sans créer de compte, en renseignant un formulaire minimal.
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+FO-18
+Formulaire invité
+Champs requis : nom, prénom, téléphone, adresse complète, ville, remarque (facultative).
+Must
+FO-19
+Validation des champs
+Contrôle de format (téléphone valide, champs obligatoires non vides) avant soumission.
+Must
+FO-20
+Confirmation de commande
+Page de récapitulatif et numéro de commande généré après validation.
+Must
+
+4.6 Compte client (facultatif)
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+FO-21
+Création de compte
+Inscription optionnelle pour permettre le suivi des commandes passées.
+Should
+FO-22
+Historique commandes
+Liste des commandes du client connecté avec statut de chacune.
+Should
+
+5. Spécifications détaillées — Back Office
+5.1 Authentification administrateur
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-01
+Accès sécurisé
+Authentification par identifiant/mot de passe (hachage bcrypt), limitation des tentatives de connexion.
+Must
+
+5.2 Dashboard principal
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-02
+Ventes du jour / du mois
+Indicateurs chiffrés mis à jour en temps réel.
+Must
+BO-03
+Commandes du jour / du mois
+Nombre de commandes agrégées par période.
+Must
+BO-04
+Produits les plus vendus
+Classement des produits par volume de ventes.
+Should
+BO-05
+Chiffre d'affaires global
+Cumul du CA depuis la mise en production, ou sur une période sélectionnable.
+Must
+
+5.3 Reporting commercial (courbes d'évolution)
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-06
+Courbe journalière — commandes
+Évolution du nombre de commandes jour par jour (graphique ligne).
+Should
+BO-07
+Courbe journalière — ventes
+Évolution du montant des ventes jour par jour.
+Should
+BO-08
+Courbe mensuelle — commandes
+Agrégation mensuelle du volume de commandes (graphique barres).
+Should
+BO-09
+Courbe mensuelle — CA
+Agrégation mensuelle du chiffre d'affaires (graphique barres).
+Should
+
+Bibliothèque recommandée : Chart.js (légère, compatible Bootstrap, pas de dépendance backend supplémentaire).
+5.4 Gestion des produits (CRUD)
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-10
+Ajouter un produit
+Formulaire : nom, description, prix, catégorie, stock, image(s).
+Must
+BO-11
+Modifier un produit
+Édition de tous les champs, remplacement d'image.
+Must
+BO-12
+Supprimer un produit
+Suppression avec confirmation ; envisager une désactivation logique plutôt qu'une suppression physique si le produit est lié à des commandes existantes.
+Must
+BO-13
+Gestion du stock
+Mise à jour manuelle du stock ; décrément automatique à la validation d'une commande.
+Must
+
+5.5 Gestion des catégories (CRUD)
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-14
+CRUD catégories
+Création, modification, suppression des catégories ; empêcher la suppression d'une catégorie contenant des produits actifs.
+Must
+
+5.6 Gestion des commandes
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-15
+Liste des commandes
+Colonnes : numéro, cliente, date, montant, statut. Recherche et filtre par statut/date.
+Must
+BO-16
+Changement de statut
+Cycle : en attente ? validée ? expédiée ? livrée. Transition contrôlée (pas de retour en arrière incohérent).
+Must
+BO-17
+Détail commande
+Vue détaillée des produits commandés, quantités et informations client.
+Must
+
+5.7 Exportation CSV pour audit comptable
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+BO-18
+Export commandes CSV
+Colonnes : numéro commande, date, cliente, téléphone, adresse, montant total, statut.
+Must
+BO-19
+Export journalier / mensuel / annuel
+Sélecteur de période avant génération du fichier.
+Should
+BO-20
+Encodage et compatibilité
+Export UTF-8 avec BOM pour compatibilité Excel (accents), séparateur point-virgule si usage local FR.
+Must
+
+6. Spécifications techniques
+6.1 Stack imposée
+Backend : PHP natif, architecture MVC stricte
+Base de données : MySQL
+Frontend : HTML, CSS, JavaScript, Bootstrap
+Environnement local : XAMPP
+6.2 Architecture applicative
+Organisation MVC recommandée :
+Model — classes d'accès aux données (PDO, requêtes préparées)
+View — templates PHP/HTML par module (Front Office / Back Office séparés)
+Controller — logique métier, un contrôleur par entité (Produit, Commande, Catégorie, Admin)
+Routeur simple en point d'entrée unique (index.php) ou routage par dossier, selon convention retenue par l'équipe
+6.3 Contraintes techniques transverses
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+TC-01
+Requêtes préparées
+Toutes les requêtes SQL doivent utiliser PDO avec requêtes préparées (aucune concaténation de variables).
+Must
+TC-02
+Anti-injection SQL
+Validation et échappement systématique des entrées utilisateur côté serveur.
+Must
+TC-03
+Sessions sécurisées
+Régénération d'ID de session à la connexion, cookies en HttpOnly, expiration après inactivité.
+Must
+TC-04
+Responsive mobile
+Interface utilisable sans perte de fonctionnalité sur mobile (grille Bootstrap).
+Must
+
+7. Modèle de données attendu
+Tables principales identifiées : admins, categories, products, orders, order_details. Structure indicative ci-dessous, à affiner lors de la conception du MCD/MPD détaillé.
+Table : admins
+Champ
+Type
+Description
+id_admin
+INT (PK, AI)
+Identifiant unique
+nom_utilisateur
+VARCHAR(50)
+Identifiant de connexion
+mot_de_passe
+VARCHAR(255)
+Hash bcrypt
+date_creation
+DATETIME
+Date de création du compte
+
+
+Table : categories
+Champ
+Type
+Description
+id_categorie
+INT (PK, AI)
+Identifiant unique
+nom
+VARCHAR(100)
+Nom de la catégorie
+description
+TEXT
+Description optionnelle
+
+
+Table : products
+Champ
+Type
+Description
+id_produit
+INT (PK, AI)
+Identifiant unique
+id_categorie
+INT (FK)
+Référence vers categories
+nom
+VARCHAR(150)
+Nom du produit
+description
+TEXT
+Description détaillée
+prix
+DECIMAL(10,2)
+Prix TTC
+stock
+INT
+Quantité disponible
+image
+VARCHAR(255)
+Chemin de l'image principale
+date_creation
+DATETIME
+Utilisée pour le tri « Nouveautés »
+
+
+Table : orders
+Champ
+Type
+Description
+id_commande
+INT (PK, AI)
+Identifiant unique
+nom_client, prenom_client
+VARCHAR(100)
+Identité de la cliente (mode invité)
+telephone
+VARCHAR(20)
+Contact
+adresse, ville
+VARCHAR(255) / VARCHAR(100)
+Livraison
+remarque
+TEXT
+Optionnelle
+montant_total
+DECIMAL(10,2)
+Total calculé
+statut
+ENUM
+en_attente / validee / expediee / livree
+date_commande
+DATETIME
+Horodatage
+
+
+Table : order_details
+Champ
+Type
+Description
+id_detail
+INT (PK, AI)
+Identifiant unique
+id_commande
+INT (FK)
+Référence vers orders
+id_produit
+INT (FK)
+Référence vers products
+quantite
+INT
+Quantité commandée
+prix_unitaire
+DECIMAL(10,2)
+Prix au moment de la commande (historisation)
+
+
+8. Exigences non fonctionnelles
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+NF-01
+Sécurité
+Hachage des mots de passe, protection CSRF sur les formulaires sensibles, requêtes préparées systématiques.
+Must
+NF-02
+Performance
+Temps de chargement des pages catalogue < 2s en conditions locales ; pagination obligatoire au-delà de 20 produits.
+Should
+NF-03
+Ergonomie
+Parcours de commande en 3 étapes maximum (panier ? informations ? confirmation).
+Should
+NF-04
+Maintenabilité
+Respect strict de la séparation MVC, nommage cohérent, code commenté.
+Must
+NF-05
+Compatibilité navigateurs
+Support Chrome, Firefox, Edge (2 dernières versions majeures).
+Could
+
+9. Livrables attendus
+Code source complet (Front Office + Back Office) structuré en MVC
+Script SQL de création de la base de données (structure + jeu de données de test)
+Documentation technique succincte (installation, structure des dossiers, comptes de test)
+Jeu de tests fonctionnels couvrant les items « Must » de ce document
+Export CSV de démonstration (exemple de fichier généré)
+10. Planning indicatif
+Réf.
+Fonctionnalité
+Description / exigence
+Priorité
+P1
+Cadrage & base de données
+Modélisation MCD/MPD, création de la base MySQL, mise en place de la structure MVC.
+Must
+P2
+Front Office
+Accueil, catalogue, fiche produit, panier, tunnel de commande sans compte.
+Must
+P3
+Back Office core
+Authentification, CRUD produits/catégories, gestion des commandes.
+Must
+P4
+Dashboard & reporting
+Indicateurs, courbes d'évolution, export CSV.
+Should
+P5
+Tests & recette
+Vérification des exigences non fonctionnelles, corrections, responsive.
+Must
+
+11. Évolutions futures (hors périmètre V1)
+Les points suivants sont explicitement exclus de la version 1 et ne doivent pas bloquer la livraison :
+Intégration WhatsApp (notification ou prise de commande)
+Notifications par email (confirmation de commande, changement de statut)
+Codes promo / coupons de réduction
+Tableau prévisionnel des ventes
