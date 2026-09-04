@@ -15,7 +15,7 @@ return [
     'port' => $_ENV['DB_PORT'] ?? '20147',
     'name' => $_ENV['DB_NAME'] ?? 'defaultdb',
     'user' => $_ENV['DB_USER'] ?? 'avnadmin',
-    'pass' => $_ENV['DB_PASS'] ?? 'TON_MOT_DE_PASSE_AIVEN',
+    'pass' => $_ENV['DB_PASS'] ?? getenv('DB_PASS') ?? '',
     'charset' => 'utf8mb4',
 
     ],
