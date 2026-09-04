@@ -1,18 +1,12 @@
 <?php
-
 declare(strict_types=1);
 
 require_once __DIR__ . '/app/Core/Autoload.php';
 
 $config = \App\Core\Container::get('config');
-if (!($config['app']['debug'] ?? false)) {
-    error_reporting(0);
-    ini_set('display_errors', '0');
-} else {
-    error_reporting(E_ALL);
-    ini_set('display_errors', '1');
-}
-
+// Forcer l'affichage des erreurs PHP pour le diagnostic en production
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 use App\Core\Router;
 
 $router = new Router();
