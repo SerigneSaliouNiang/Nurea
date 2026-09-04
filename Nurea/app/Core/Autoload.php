@@ -38,7 +38,7 @@ if (file_exists($envFile)) {
 
 $config = require __DIR__ . '/../../config/config.php';
 
-// Fix Render Proxy Reverse HTTPS
+// Fix Render Reverse Proxy HTTPS
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
     $_SERVER['HTTPS'] = 'on';
 }
@@ -49,14 +49,14 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     $sessionName = $config['app']['session_name'] ?? 'app_session';
     session_name($sessionName);
 
-    // Stockage persistant des sessions
+    // Stockage des sessions
     $sessionSavePath = sys_get_temp_dir() . '/nurea_sessions';
     if (!is_dir($sessionSavePath)) {
         @mkdir($sessionSavePath, 0777, true);
     }
     session_save_path($sessionSavePath);
 
-    // Configuration des cookies de session
+    // Configuration des cookies
     session_set_cookie_params([
         'lifetime' => 86400,
         'path' => '/',
